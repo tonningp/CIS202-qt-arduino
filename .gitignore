@@ -33,3 +33,4 @@
 
 # QT stuff
 *.user
+build-*
