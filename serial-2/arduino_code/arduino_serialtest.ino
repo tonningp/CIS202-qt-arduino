@@ -1,7 +1,21 @@
 /*
+  Reading a serial ASCII-encoded string.
 
-  created 21  May 2018
-  created by: Paul Tonning
+  This sketch demonstrates the Serial parseInt() function.
+  It looks for an ASCII string of comma-separated values.
+  It parses them into ints, and uses those to fade an RGB LED.
+
+  Circuit: Common-Cathode RGB LED wired like so:
+  - red anode: digital pin 3
+  - green anode: digital pin 5
+  - blue anode: digital pin 6
+  - cathode: GND
+
+  created 13 Apr 2012
+  by Tom Igoe
+  modified 14 Mar 2016
+  by Arturo Guadalupi
+
   This example code is in the public domain.
 */
 #include <Servo.h>
@@ -60,6 +74,7 @@ void loop() {
             int pin = atoi(serialbuffer);
             ++separator;
             int value =  constrain(atoi(separator), 0, 255);
+           
             analogWrite(pin, value);
           }
           
@@ -83,7 +98,6 @@ void loop() {
   }
   if (currentMillis - previousTempMillis >= interval[1]) {
     /*
-     * Sensor Value
      * We can get value magic number 0.48828125 from following expression:
         (SUPPLY_VOLTAGE x 1000 / 1024) / 10 where SUPPLY_VOLTAGE is 5.0V (the voltage used to power LM35)
         1024 is 2^10, value where the analog value can be represented by ATmega (cmiiw) or the maximum value it can be represented is 1023. The actual voltage obtained by VOLTAGE_GET / 1024.
@@ -98,5 +112,40 @@ void loop() {
     Serial.println();
   }
   
+  // if there's any serial available, read it:
+  /*
+  while (Serial.available() > 0) {
+
+    // look for the next valid integer in the incoming serial stream:
+    int red = Serial.parseInt();
+    // do it again:
+    int green = Serial.parseInt();
+    // do it again:
+    int blue = Serial.parseInt();
+
+    // look for the newline. That's the end of your sentence:
+    char endChar = Serial.read();
+    if (endChar == '\n' || endChar == '\r') {
+    //if (Serial.read() == '\r') {
+      Serial.println("Received");
+      // constrain the values to 0 - 255 and invert
+      // if you're using a common-cathode LED, just use "constrain(color, 0, 255);"
+      red =  constrain(red, 0, 255);
+      green =  constrain(green, 0, 255);
+      blue =  constrain(blue, 0, 255);
+
+      // fade the red, green, and blue legs of the LED:
+      analogWrite(redPin, red);
+      analogWrite(greenPin, green);
+      analogWrite(bluePin, blue);
+
+      // print the three numbers in one string as hexadecimal:
+      Serial.print(red, HEX);
+      Serial.print(green, HEX);
+      Serial.println(blue, HEX);
+    }
+  
+  }
+  */
   
 }
