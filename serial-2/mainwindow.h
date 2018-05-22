@@ -23,8 +23,6 @@ private slots:
 
 public slots:
     void onbutton1Press(bool toggled);
-    void onbutton2Press(bool toggled);
-    void onbutton3Press(bool toggled);
 
 
 private:

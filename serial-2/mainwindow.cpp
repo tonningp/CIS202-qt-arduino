@@ -13,27 +13,13 @@ MainWindow::MainWindow(QWidget *parent) :
     button[0]->setCheckable(true);
     label[0] = new QLabel("Off",this);
     label[0]->move(button[0]->pos()+QPoint(button[0]->width()+5,0));
-    button[1] = new QPushButton("LED 2",this);
-    button[1]->move(button[0]->pos()+QPoint(0,button[0]->height()+5));
-    button[1]->setCheckable(true);
-    label[1] = new QLabel("Off",this);
-    label[1]->move(button[0]->pos()+QPoint(button[0]->width()+5,button[0]->height()+5));
-    button[2] = new QPushButton("LED 3",this);
-    button[2]->move(button[1]->pos()+QPoint(0,button[1]->height()+5));
-    button[2]->setCheckable(true);
-    label[2] = new QLabel("Off",this);
-    label[2]->move(button[1]->pos()+QPoint(button[1]->width()+5,button[1]->height()+5));
-    m_console->move(button[2]->pos()+QPoint(0,button[2]->height()+5));
+    m_console->move(button[0]->pos()+QPoint(0,button[0]->height()+5));
     m_console->setEnabled(true);
     connect(button[0],SIGNAL(toggled(bool)),this,SLOT(onbutton1Press(bool)));
-    connect(button[1],SIGNAL(toggled(bool)),this,SLOT(onbutton2Press(bool)));
-    connect(button[2],SIGNAL(toggled(bool)),this,SLOT(onbutton3Press(bool)));
     connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
     connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
     openSerialPort();
     m_led_state[0] = 0;
-    m_led_state[1] = 0;
-    m_led_state[2] = 0;
     setFixedSize(800,600);
 
 }
@@ -45,18 +31,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::onbutton1Press(bool toggled)
 {
-    toggle_it(toggled,0,3);
+    toggle_it(toggled,0,3); // the third parameter is pin #3
 }
 
-void MainWindow::onbutton2Press(bool toggled)
-{
-    toggle_it(toggled,1,5);
-}
-
-void MainWindow::onbutton3Press(bool toggled)
-{
-  toggle_it(toggled,2,6);
-}
 
 void MainWindow::sendData(const QString &data)
 {
@@ -90,7 +67,6 @@ void MainWindow::toggle_it(bool toggled,int button,int led_pin)
 
 void MainWindow::readData()
 {
-    //const QByteArray data = m_serial->readAll();
     m_buffer += QString( m_serial->readAll());
     if(m_buffer.contains('\n') && m_buffer.contains('\r'))
     {
