@@ -26,8 +26,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    console.cpp
+        console.cpp\
+        arduino_code/serialreadwrite.ino
 
 HEADERS += \
         mainwindow.h \
     console.h
+
+SUBDIRS = arduino_code

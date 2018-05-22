@@ -56,7 +56,6 @@ void loop() {
       size_t s_length = Serial.readBytesUntil('\n',serialbuffer,BUFFER_LENGTH);
       if(s_length)
       {
-          //Serial.println(serialbuffer);
           char* separator = strchr(serialbuffer, ':');
           if(separator != 0)
           {
