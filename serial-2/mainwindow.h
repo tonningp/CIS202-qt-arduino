@@ -26,7 +26,7 @@ public slots:
 
 
 private:
-    QPushButton *button[3];
+    QPushButton *button[3]; // only 1 button is configured for now
     QLabel *label[3];
     QSerialPort *m_serial = nullptr;
     int m_led_state[54];
