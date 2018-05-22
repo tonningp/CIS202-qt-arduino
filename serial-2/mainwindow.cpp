@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
     connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
     openSerialPort();
-    m_led_state[0] = 0;
+    m_led_state[0] = 0; // there are 3 leds, only this one is configured for now
     setFixedSize(800,600);
 
 }
