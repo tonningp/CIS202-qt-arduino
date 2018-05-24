@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = timer
+TARGET = sprite
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,10 +27,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         console.cpp \
-        ballanimation.cpp 
+    sprite.cpp
 
 HEADERS += \
     mainwindow.h \
     console.h \ 
-    ballanimation.h 
+    sprite.h
 
+RESOURCES += \
+    resource.qrc

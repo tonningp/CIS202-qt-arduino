@@ -8,7 +8,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_console(new Console(this)),
-    banimate(new BallAnimation(this))
+    sprite(new Sprite(this))
 {
     button[0] = new QPushButton("LED 1",this);
     button[0]->setCheckable(true);
@@ -22,10 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_led_state[1] = 0;
     m_led_state[2] = 0;
     QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(readData()));
-    timer->start(100);
-    banimate->move(QPoint(200,200));
-    //setFixedSize(800,600);
+    connect(timer, SIGNAL(timeout()), this, SLOT(animate()));
+    timer->start(60);
+    sprite->move(200,250);
+    setFixedSize(1024,768);
 }
 
 MainWindow::~MainWindow()
@@ -66,15 +66,9 @@ void MainWindow::toggle_it(bool toggled,int button,int led_pin)
 
 }
 
-void MainWindow::readData()
+void MainWindow::animate()
 {
-    static int count=0;
-    //const QByteArray data = m_serial->readAll();
-    //m_buffer = QString("%1" ).arg( QDateTime::currentDateTime().toTime_t() );
-    //processMessage(m_buffer);
-    banimate->addToOrigin(QPoint(1,1));
-    banimate->repaint();
-    processMessage(QString("%1 %2").arg(count).arg(QDateTime::currentDateTime().toTime_t() ));
-    count++;
-    m_buffer = "";
+    sprite->advance();
+    sprite->move(sprite->pos()+QPoint(2,0));
 }
+

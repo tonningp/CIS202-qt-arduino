@@ -1,6 +1,7 @@
 #include "ballanimation.h"
 #include <QPaintEvent>
 #include <QPainter>
+#include <QRandomGenerator>
 #include<QDebug>
 
 BallAnimation::BallAnimation(QWidget *parent) :
@@ -9,6 +10,8 @@ BallAnimation::BallAnimation(QWidget *parent) :
 
 {
     setFixedSize(100,100);
+    quint32 value = QRandomGenerator::global()->generate();
+    qDebug() << value;
 }
 
 void BallAnimation::setOrigin(const QPoint &origin)
